@@ -1,0 +1,9 @@
+[Unit]
+Description=start scd41 service on boot
+After=multi-user.target
+[Service]
+WorkingDirectory=/home/pi/com/bigboxer23/scd41-service/1.0.0
+ExecStart=java -jar /home/pi/com/bigboxer23/scd41-service/1.0.0/scd41-service-1.0.0.jar
+User=pi
+[Install]
+WantedBy=multi-user.target
