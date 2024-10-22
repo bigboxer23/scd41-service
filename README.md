@@ -1,4 +1,4 @@
-[![CodeQL](https://github.com/bigboxer23/climate-service/actions/workflows/codeql.yml/badge.svg)](https://github.com/bigboxer23/climate-service/actions/workflows/codeql.yml)
+[![CodeQL](https://github.com/bigboxer23/scd41-service/actions/workflows/codeql.yml/badge.svg)](https://github.com/bigboxer23/scd41-service/actions/workflows/codeql.yml)
 
 ## Introduction
 
