@@ -1,9 +1,10 @@
 package com.bigboxer23.scd41;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,10 @@ public class SCD41Component implements ISCD41Constants {
 
 	private String path = null;
 
+	private final Cache<Long, Map<String, Float>> cache;
+
 	public SCD41Component() {
+		cache = CacheBuilder.newBuilder().maximumSize(30).build();
 		initPythonScript();
 		startSensorProcess();
 	}
@@ -59,5 +63,26 @@ public class SCD41Component implements ISCD41Constants {
 			return;
 		}
 		logger.debug("Sensor Data: " + data);
+		Map<String, Float> transformed = new HashMap<>();
+		cache.put(System.currentTimeMillis(), transformed);
+		Integer[] index = {0};
+		SENSOR_DATA.forEach(d -> {
+			transformed.put(d, Float.parseFloat(content[index[0]]));
+			index[0]++;
+		});
+	}
+
+	public Map<String, Float> getAveragedData() {
+		Map<String, Float> averages = new HashMap<>();
+
+		// Loop through all maps in cache and accumulate the values for each sensor
+		cache.asMap()
+				.values()
+				.forEach(map -> SENSOR_DATA.forEach(
+						item -> averages.put(item, averages.getOrDefault(item, 0f) + map.get(item))));
+
+		// After accumulating, calculate the average by dividing by the size of the cache
+		SENSOR_DATA.forEach(theItem -> averages.put(theItem, averages.get(theItem) / cache.size()));
+		return averages;
 	}
 }
