@@ -12,7 +12,6 @@ Other good resources on the sensor: `https://github.com/adafruit/Adafruit_Circui
 
 ## Installation
 
-
 * Install `adafruit-circuitpython-scd4x` Library (See for alternate installation instructions https://github.com/adafruit/Adafruit_CircuitPython_SCD4x)
   * `sudo apt-get install python3-pip`
   * `sudo pip3 install adafruit-circuitpython-scd4x`
@@ -21,13 +20,15 @@ Other good resources on the sensor: `https://github.com/adafruit/Adafruit_Circui
 * Install java
   * `sudo apt install default-jdk`
 * Create application.properties in `src/main/resources`
-  * Example Content: 
+  * Example Content:
+
   ```server.port: 8080
     logbackserver:192.168.0.7:5671
     server.port: 8080
     host=boomroom
     sensorName=boomroom
-  
+
+  ```
 * Note: if not using a logback server, update the `logback.xml` to remove the `stash` appender
 * run `install.sh` script to transfer install the .jar, service definition, & install the service
 
