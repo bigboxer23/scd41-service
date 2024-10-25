@@ -10,9 +10,12 @@ public interface ISCD41Constants {
 	/** Data we get readings from the sensor about */
 	List<String> SENSOR_DATA = new ArrayList<>() {
 		{
-			add("CO2");
-			add("Temperature");
+			add("co2");
+			add("temperature");
 			add("humidity");
 		}
 	};
+
+	String ELASTIC_INDEX = "homeautomation";
+	String ELASTIC_TYPE = "boom";
 }
