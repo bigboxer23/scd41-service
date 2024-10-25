@@ -46,8 +46,7 @@ public class ScheduledElasticComponent implements DisposableBean {
 	protected void sendToElastic(Map<String, Object> data) {
 		BulkRequest request = new BulkRequest();
 		data.put("time", new Date());
-		request.add(
-				new IndexRequest(ELASTIC_INDEX, ELASTIC_TYPE, ELASTIC_TYPE + System.currentTimeMillis()).source(data));
+		request.add(new IndexRequest(ELASTIC_INDEX, ELASTIC_TYPE, "boom" + System.currentTimeMillis()).source(data));
 		logger.debug("Sending Request to elastic");
 		try {
 			BulkResponse response = getClient().bulk(request, RequestOptions.DEFAULT);

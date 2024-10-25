@@ -17,5 +17,5 @@ public interface ISCD41Constants {
 	};
 
 	String ELASTIC_INDEX = "homeautomation";
-	String ELASTIC_TYPE = "boom";
+	String ELASTIC_TYPE = "Status";
 }

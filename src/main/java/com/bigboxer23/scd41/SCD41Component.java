@@ -57,7 +57,7 @@ public class SCD41Component implements ISCD41Constants {
 	}
 
 	private void readSensorData(String data) {
-		String[] content = Optional.ofNullable(data).map(d -> d.split(":")).orElse(new String[0]); // data.split(",");
+		String[] content = Optional.ofNullable(data).map(d -> d.split(":")).orElse(new String[0]);
 		if (content.length != 3) {
 			logger.error("Data read from processor is invalid: " + data);
 			return;
@@ -66,8 +66,8 @@ public class SCD41Component implements ISCD41Constants {
 		Map<String, Float> transformed = new HashMap<>();
 		cache.put(System.currentTimeMillis(), transformed);
 		Integer[] index = {0};
-		SENSOR_DATA.forEach(d -> {
-			transformed.put(d, Float.parseFloat(content[index[0]]));
+		SENSOR_DATA.forEach(k -> {
+			transformed.put(k, Float.parseFloat(content[index[0]]));
 			index[0]++;
 		});
 	}
