@@ -44,8 +44,13 @@ public class ScheduledElasticComponent implements DisposableBean {
 	}
 
 	protected void sendToElastic(Map<String, Object> data) {
+		if (data.isEmpty()) {
+			logger.warn("Not sending anything to elastic, empty data set.");
+			return;
+		}
 		BulkRequest request = new BulkRequest();
 		data.put("time", new Date());
+		data.put("sensor", "scd41");
 		request.add(new IndexRequest(ELASTIC_INDEX, ELASTIC_TYPE, "boom" + System.currentTimeMillis()).source(data));
 		logger.debug("Sending Request to elastic");
 		try {

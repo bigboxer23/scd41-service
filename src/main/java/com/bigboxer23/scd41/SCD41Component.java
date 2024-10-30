@@ -74,7 +74,9 @@ public class SCD41Component implements ISCD41Constants {
 
 	public Map<String, Float> getAveragedData() {
 		Map<String, Float> averages = new HashMap<>();
-
+		if (cache.size() == 0) {
+			return averages;
+		}
 		// Loop through all maps in cache and accumulate the values for each sensor
 		cache.asMap()
 				.values()
@@ -82,7 +84,7 @@ public class SCD41Component implements ISCD41Constants {
 						item -> averages.put(item, averages.getOrDefault(item, 0f) + map.get(item))));
 
 		// After accumulating, calculate the average by dividing by the size of the cache
-		SENSOR_DATA.forEach(theItem -> averages.put(theItem, averages.get(theItem) / cache.size()));
+		SENSOR_DATA.forEach(item -> averages.put(item, averages.getOrDefault(item, 0f) / cache.size()));
 		return averages;
 	}
 }
