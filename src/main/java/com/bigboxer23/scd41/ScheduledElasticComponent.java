@@ -59,7 +59,7 @@ public class ScheduledElasticComponent implements DisposableBean {
 				logger.error(response.buildFailureMessage());
 			}
 		} catch (IOException e) {
-			logger.error("sendToElastic", e);
+			logger.debug("sendToElastic", e);
 		}
 	}
 
