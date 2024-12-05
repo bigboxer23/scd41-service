@@ -67,9 +67,21 @@ public class SCD41Component implements ISCD41Constants {
 		cache.put(System.currentTimeMillis(), transformed);
 		Integer[] index = {0};
 		SENSOR_DATA.forEach(k -> {
-			transformed.put(k, Float.parseFloat(content[index[0]]));
+			transformed.put(k, transformData(content[index[0]], k));
 			index[0]++;
 		});
+	}
+
+	private float transformData(String data, String key) {
+		float transformed = Float.parseFloat(data);
+		if ("temperature".equals(key)) {
+			return celciusToFahrenheit(transformed);
+		}
+		return transformed;
+	}
+
+	private float celciusToFahrenheit(float celcius) {
+		return (celcius * 1.8f) + 32f;
 	}
 
 	public Map<String, Float> getAveragedData() {
